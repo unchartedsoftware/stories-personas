@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+.idea
+bamboo/**
+coverage/**
+dist/**
+example/uncharted.personas.dependencies.js
+example/uncharted.personas.js

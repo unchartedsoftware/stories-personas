@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+  ~ /**
+  ~ * Copyright © 2017 Uncharted Software Inc.
+  ~ *
+  ~ * Property of Uncharted™, formerly Oculus Info Inc.
+  ~ * http://uncharted.software/
+  ~ *
+  ~ * Released under the MIT License.
+  ~ *
+  ~ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+  ~ * this software and associated documentation files (the "Software"), to deal in
+  ~ * the Software without restriction, including without limitation the rights to
+  ~ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+  ~ * of the Software, and to permit persons to whom the Software is furnished to do
+  ~ * so, subject to the following conditions:
+  ~ *
+  ~ * The above copyright notice and this permission notice shall be included in all
+  ~ * copies or substantial portions of the Software.
+  ~ *
+  ~ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  ~ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  ~ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  ~ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  ~ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  ~ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  ~ * SOFTWARE.
+  ~ */
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personas Example</title>
+    <link rel="stylesheet" href="font-awesome.css">
+    <link rel="stylesheet" href="../dist/personas.css">
+
+    <script type="text/javascript" src="../dist/uncharted.personas.dependencies.js"></script>
+    <script type="text/javascript" src="../dist/uncharted.personas.js"></script>
+    <script type="text/javascript" src="sampledata.js"></script>
+</head>
+<body>
+<svg id="personas-panel" width="100%" height="600" version="1.1"  xmlns="http://www.w3.org/2000/svg"></svg>
+<a id="moreData" href="javascript:void(0);">load more data...</a><br />
+<a id="subSelectPersonas01" href="javascript:void(0);">sub-select 3 personas...</a><br />
+<a id="subSelectPersonas02" href="javascript:void(0);">sub-select 3 personas and keep previous selection...</a><br />
+<a id="orbitalLayout" href="javascript:void(0);">Set layout type to "orbital"</a><br />
+<a id="colaLayout" href="javascript:void(0);">Set layout type to "cola" (Force graph)</a><br />
+<a id="setZoom" href="javascript:void(0);">Set Current Zoom Level</a><br />
+<a id="logZoom" href="javascript:void(0);">Log Current Zoom Level</a><br />
+
+<script type="text/javascript">
+    $(function() {
+        var data = getSampleData();
+        var options = {
+            autoGenerateIconMap: false,
+            entityIcons: getIconMap(),
+            // to disable visual effects on sub selection
+            Persona: {
+                config: {
+                    transitionsDuration: 300,
+                    subSelectEffectEnabled: false,
+                    forceGreyscaleBackgroundColor: false
+                }
+            }
+        };
+
+        var personas = new Uncharted.Personas($('#personas-panel')[0], options);
+        personas.loadData(data);
+        personas.enableBlur(false);
+
+        var moreDataLink = document.getElementById("moreData");
+        moreDataLink.onclick = function() {
+            personas.loadData(getExtraSampleData(), true);
+            return false;
+        };
+
+        var subSelectLink01 = document.getElementById("subSelectPersonas01");
+        subSelectLink01.onclick = function() {
+            personas.subSelectPersonas(getSubSelectData01());
+            return false;
+        };
+
+        var subSelectLink02 = document.getElementById("subSelectPersonas02");
+        subSelectLink02.onclick = function() {
+            personas.subSelectPersonas(getSubSelectData02(), true);
+            return false;
+        };
+
+        var orbitalLink = document.getElementById("orbitalLayout");
+        orbitalLink.onclick = function() {
+            personas.layoutSystemType = 'orbital';
+            return false;
+        };
+
+        var colaLink = document.getElementById("colaLayout");
+        colaLink.onclick = function() {
+            personas.layoutSystemType = 'cola';
+            return false;
+        };
+
+        var setZoomLink = document.getElementById("setZoom");
+        setZoomLink.onclick = function() {
+            personas.zoom = 1.4;
+        };
+
+        var logZoomLink = document.getElementById("logZoom");
+        logZoomLink.onclick = function() {
+            console.log(personas.zoom);
+        };
+    });
+</script>
+
+</body>
+</html>
