@@ -91,10 +91,9 @@ function Avatar(imageURLs, radius, color, forceGreyscale) {
     this.mContainer.attr({filter: filter});
     this.mFilter = filter;
 
-    /* mask */
-    this.mMask = new Node('circle', { 'cx': 0, 'cy': 0, 'r': radius });
-    this.mMask.attr('fill', '#fff');
-    this.mContainer.attr({ mask: this.mMask });
+    /* clip-path */
+    this.mClipPath = new Node('circle', { 'cx': 0, 'cy': 0, 'r': radius });
+    this.mContainer.attr({ 'clip-path': this.mClipPath });
 
     /* load the images */
     var imageRadius = radius + (blurStrength * 2); // consider the blur to avoid displaying semi-transparent edges
@@ -212,10 +211,10 @@ Avatar.prototype.setRadius = function (newRadius, animated) {
 
         if (animated) {
             this.mBackground.animate({ r: newRadius }, 500, mina.easeinout);
-            this.mMask.animate({ r: newRadius }, 500, mina.easeinout);
+            this.mClipPath.animate({ r: newRadius }, 500, mina.easeinout);
         } else {
             this.mBackground.attr({ r: newRadius });
-            this.mMask.attr({ r: newRadius });
+            this.mClipPath.attr({ r: newRadius });
         }
 
         var images = this.mImages;
