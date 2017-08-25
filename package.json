@@ -1,6 +1,6 @@
 {
   "name": "@uncharted.software/stories-personas",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "description": "Personas Component developed by Uncharted Software",
   "repository": "https://github.com/unchartedsoftware/stories-personas",
   "main": "dist/uncharted.personas.js",
